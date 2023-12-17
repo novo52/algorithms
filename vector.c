@@ -98,8 +98,8 @@ void vec_print_formatted(Vec *vec, element_print_formatted *element_print_format
 	printf("]\n");
 }
 
-void int_print_formatted(void *i) { printf("%d", (int *)i); }
-void char_print_formatted(void *c) { printf("%c", (char *)c); }
+void int_print_formatted(void *i) { printf("%d", *(int *)i); }
+void char_print_formatted(void *c) { printf("%c", *(char *)c); }
 
 void vec_print_hex(Vec *vec) {
 	printf("[");
