@@ -1,4 +1,5 @@
 #include "util.h"
+#include <stdio.h>
 
 void memswap(void *p1, void *p2, size_t size) {
         void *tp = malloc(size);
@@ -12,4 +13,13 @@ void *memdup(void *p, size_t size) {
 	void *d = malloc(size);
 	memcpy(d, p, size);
 	return d;
+}
+
+void print_int_array(int *arr, int n) {
+        printf("[");
+        for (int i = 0; i < n; i++) {
+                printf("%d", arr[i]);
+                if (i != n-1) printf(", ");
+        }
+        printf("]\n");
 }

@@ -13,4 +13,6 @@ void memswap(void *p1, void *p2, size_t size);
 // Does not alter the contents of the memory at p
 void *memdup(void *p, size_t size);
 
+void print_int_array(int *arr, int n);
+
 #endif
