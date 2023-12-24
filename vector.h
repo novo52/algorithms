@@ -49,6 +49,7 @@ typedef void element_print_formatted(void *p);
 void vec_print_formatted(Vec *vec, element_print_formatted *element_print_formatted);
 void int_print_formatted(void *i);
 void char_print_formatted(void *c);
+void pointer_print_formatted(void *p);
 
 // Print elements of any size or type as hex literals
 void vec_print_hex(Vec *vec);

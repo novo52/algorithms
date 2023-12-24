@@ -1,6 +1,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
+#include <stdint.h>
 #include "vector.h"
 
 Vec *vec_alloc_sized(size_t sizeof_element, int capacity) {
@@ -100,14 +101,15 @@ void vec_print_formatted(Vec *vec, element_print_formatted *element_print_format
 
 void int_print_formatted(void *i) { printf("%d", *(int *)i); }
 void char_print_formatted(void *c) { printf("%c", *(char *)c); }
+void pointer_print_formatted(void *p) { printf("%p", *(int **)p); }
 
 void vec_print_hex(Vec *vec) {
 	printf("[");
 	for (int i = 0; i < vec->length; i++) {
 		printf("0x");
 		for (int j = 0; j < vec->sizeof_element; j++) {
-			char byte = *((char *)vec->head + i*vec->sizeof_element + j);
-			printf("%02X", byte);
+			unsigned char byte = *((unsigned char *)vec->head + i*vec->sizeof_element + j);
+			printf("%02hhX", byte);
 		}
 		if (i != vec->length-1) printf(", ");
 	}
@@ -119,6 +121,8 @@ void vec_print_auto(Vec *vec) {
 		vec_print_formatted(vec, int_print_formatted);
 	} else if (vec->sizeof_element == sizeof(char)) {
 		vec_print_formatted(vec, char_print_formatted);
+	} else if (vec->sizeof_element == sizeof(int *)) {
+		vec_print_formatted(vec, pointer_print_formatted);
 	} else {
 		vec_print_hex(vec); // Couldn't find a matching type to print
 	}
@@ -127,5 +131,4 @@ void vec_print_auto(Vec *vec) {
 void vec_debug_print(Vec *vec) {
 	printf("len/cap/elem_size: %d/%d/%d",
 		vec->length, vec->capacity, vec->sizeof_element);
-}
-	
+}	
