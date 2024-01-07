@@ -10,8 +10,7 @@ void solve_quadratic(double a, double b, double c, double solutions[2], int *sol
 
 // for f(x) = a*x^2 + b*x + c
 // solution of f'(x) = 0
-void solve_quadratic_vertex(double a, double b, double c, 
-		double *solution_x, double *solution_y);
+double solve_quadratic_vertex(double a, double b, double c);
 
 // f(x) = a*x^3 + b*x^2 + c*x + d
 double eval_cubic(double a, double b, double c, double d, double x);
@@ -21,4 +20,8 @@ double eval_cubic(double a, double b, double c, double d, double x);
 void solve_cubic(double a_, double a2, double a1, double a0, 
 		double solutions[3], int *solution_count);
 
+// for f(x) = a*x^3 + b*x^2 + c*x + d
+// solution of f'(x) = 0
+void solve_cubic_vertices(double a, double b, double c, double d, 
+		double solutions[2], int *solution_count);
 #endif

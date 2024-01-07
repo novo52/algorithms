@@ -10,36 +10,47 @@ double eval_quadratic(double a, double b, double c, double x) {
 }
 
 void solve_quadratic(double a, double b, double c, double solutions[2], int *solution_count) {
+	if (a == 0) {
+		*solution_count = 1;
+		solutions[0] = -c/b;
+		solutions[1] = 0.0;
+		return;
+	}
 
 	double det = b*b - 4.0*a*c;
 
-	*solution_count = 0; // There exists at least one solution
+	*solution_count = 0;
+	solutions[0] = 0.0;
+	solutions[1] = 0.0;
 	if (det >= 0) solutions[(*solution_count)++] = ( -b - sqrt(det) )/( 2.0*a );
 	if (det >  0) solutions[(*solution_count)++] = ( -b + sqrt(det) )/( 2.0*a );
 
 }
 
-void solve_quadratic_vertex(double a, double b, double c, 
-		double *solution_x, double *solution_y) {
-	// The vertex is where derivative = 0
-	
-	*solution_x = -b/(2.0*a);
-	*solution_y = eval_quadratic(a, b, c, *solution_x);
+double solve_quadratic_vertex(double a, double b, double c) {
+	if (a == 0) return -c/b;
+	else return -b/(2.0*a); // Solution of the derivative
 }
 
 double eval_cubic(double a, double b, double c, double d, double x) {
 	return a*x*x*x + b*x*x + c*x + d;
 }
 
-void solve_cubic(double a_, double a2, double a1, double a0, 
+// https://quarticequations.com/Cubic.pdf
+void solve_cubic(double a, double b, double c, double d, 
 		double solutions[3], int *solution_count) {
-	// Divide by the leading coeffient to make it an implicit one
-	a0 /= a_;
-	a1 /= a_;
-	a2 /= a_;
+	if (a == 0) {
+		solve_quadratic(b, c, d, solutions, solution_count);
+		return;
+	}
 
-	double q = a1/3.0-a2*a2/9.0;
-	double r = (a1*a2-3.0*a0)/6.0-a2*a2*a2/27.0;
+	// Divide by the leading coeffient to make it an implicit 1
+	b /= a;
+	c /= a;
+	d /= a;
+
+	double q = c/3.0-b*b/9.0;
+	double r = (c*b-3.0*d)/6.0-b*b*b/27.0;
 
 	double det = r*r+q*q*q;
 	if (det > 0) {
@@ -48,7 +59,7 @@ void solve_cubic(double a_, double a2, double a1, double a0,
 		double t1 = A - q/A;
 		if (r < 0) t1 = -t1;
 		
-		solutions[0] = t1-a2/3.0;
+		solutions[0] = t1-b/3.0;
 		solutions[1] = 0.0;
 		solutions[2] = 0.0;
 	} else {
@@ -66,9 +77,9 @@ void solve_cubic(double a_, double a2, double a1, double a0,
 			
 		printf("p1=%lf, p2=%lf, p3=%lf\n", p1, p2, p3);
 
-		solutions[0] = 2.0 * sqrt_q * cos(p3)-a2/3.0;
-		solutions[1] = 2.0 * sqrt_q * cos(p2)-a2/3.0;
-		solutions[2] = 2.0 * sqrt_q * cos(p1)-a2/3.0;
+		solutions[0] = 2.0 * sqrt_q * cos(p3)-b/3.0;
+		solutions[1] = 2.0 * sqrt_q * cos(p2)-b/3.0;
+		solutions[2] = 2.0 * sqrt_q * cos(p1)-b/3.0;
 
 		if (solutions[0] == solutions[1]) {
 			solutions[1] = solutions[2];
@@ -80,3 +91,11 @@ void solve_cubic(double a_, double a2, double a1, double a0,
 		}
 	}
 }
+
+void solve_cubic_vertices(double a, double b, double c, double d, 
+		double solutions[2], int *solution_count) {
+	// Solve the derivative
+	solve_quadratic(3.0*a, 2.0*b, c, solutions, solution_count);
+}
+
+
