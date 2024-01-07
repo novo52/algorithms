@@ -1,6 +1,11 @@
 #ifndef POLYNOMIAL_HEADER
 #define POLYNOMIAL_HEADER
 
+typedef struct Polynomial {
+	int d;
+	double *p; // p[d+1]
+} Polynomial;
+
 // f(x) = a*x^2 + b*x + c
 double eval_quadratic(double a, double b, double c, double x);
 
@@ -24,4 +29,7 @@ void solve_cubic(double a_, double a2, double a1, double a0,
 // solution of f'(x) = 0
 void solve_cubic_vertices(double a, double b, double c, double d, 
 		double solutions[2], int *solution_count);
+
+void solve_polynomial(Polynomial *polynomial, double *solutions, int *solution_count);
+
 #endif

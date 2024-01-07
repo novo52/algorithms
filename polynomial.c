@@ -98,4 +98,18 @@ void solve_cubic_vertices(double a, double b, double c, double d,
 	solve_quadratic(3.0*a, 2.0*b, c, solutions, solution_count);
 }
 
-
+void solve_polynomial(Polynomial *polynomial, double *solutions, int *solution_count) {
+	if (polynomial->d == 0) {
+		*solution_count = 1;
+		solutions[0] = polynomial->p[0];
+	} else if (polynomial->d == 1) {
+		solve_quadratic(0.0, polynomial->p[1], polynomial->p[0],
+				solutions, solution_count);
+	} else if (polynomial->d == 2) {
+		solve_quadratic(polynomial->p[2], polynomial->p[1], polynomial->p[0],
+				solutions, solution_count);
+	} else if (polynomial->d == 3) {
+		solve_cubic(polynomial->p[3], polynomial->p[2], polynomial->p[1], 
+				polynomial->p[0], solutions, solution_count);
+	}
+}
