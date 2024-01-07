@@ -91,8 +91,8 @@ void test_min() {
 
 void test_avg() {
 	
-	const int T = 10;
-	const int I = 100;
+	const int T = 4;
+	const int I = 10;
 
 	double (*avg_trial_time)[T] = malloc(sizeof(double[2][T]));
 	for (int t = 0; t < T; t++) 
