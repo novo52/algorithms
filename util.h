@@ -14,5 +14,6 @@ void memswap(void *p1, void *p2, size_t size);
 void *memdup(void *p, size_t size);
 
 void print_int_array(int *arr, int n);
+void print_double_array(double *arr, double n);
 
 #endif

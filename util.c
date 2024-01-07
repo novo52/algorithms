@@ -21,5 +21,14 @@ void print_int_array(int *arr, int n) {
                 printf("%d", arr[i]);
                 if (i != n-1) printf(", ");
         }
-        printf("]\n");
+        printf("]");
+}
+
+void print_double_array(double *arr, double n) {
+        printf("[");
+        for (int i = 0; i < n; i++) {
+                printf("%lf", arr[i]);
+                if (i != n-1) printf(", ");
+        }
+        printf("]");
 }
